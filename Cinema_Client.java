@@ -8,6 +8,8 @@ public class Cinema_Client
         Cinema cineplex = new Cinema();
         Movie hel = new Movie(1,1,1,1,"fart");
         cineplex.addMovie(hel);
+        Object a = dropDownMenu(cineplex);
+        System.out.println(a);
         
     }
     public static Object dropDownMenu(Cinema cin)
@@ -16,7 +18,7 @@ public class Cinema_Client
         selections[0] = "Option1";
         selections[1] = "Option2";
         selections[2] = "Option3";
-        ArrayList list = cin.getMovies();
+        ArrayList<Movie> list = cin.getMovies();
         Object[] movs = list.toArray();
 
         return JOptionPane.showInputDialog(null, "choose type", "selection", JOptionPane.QUESTION_MESSAGE, null, movs, movs[0]);
