@@ -6,21 +6,23 @@ public class Cinema_Client
     public static void main(String args[])
     {
         Cinema cineplex = new Cinema();
+        Purchase items = new Purchase();
         Movie hel = new Movie(1,1,1,1,"fart");
         cineplex.addMovie(hel);
-        Object a = dropDownMenu(cineplex);
+        cineplex.addMovie(new Movie(45,6,5.99,10.99,"batman"));
+        Object a = dropDownMenu(cineplex.getMovies());
         System.out.println(a);
+        mainMenu();
         
     }
-    public static Object dropDownMenu(Cinema cin)
+    public static Object dropDownMenu(ArrayList lst)
     {
-        String[] selections = new String[3];
-        selections[0] = "Option1";
-        selections[1] = "Option2";
-        selections[2] = "Option3";
-        ArrayList<Movie> list = cin.getMovies();
-        Object[] movs = list.toArray();
-
-        return JOptionPane.showInputDialog(null, "choose type", "selection", JOptionPane.QUESTION_MESSAGE, null, movs, movs[0]);
+        Object[] arr = lst.toArray();
+        return JOptionPane.showInputDialog(null, "choose type", "selection", JOptionPane.QUESTION_MESSAGE, null, arr, arr[0]);
+    }
+    public static Object mainMenu()
+    {
+        String[] menuOption = {"View Movies", "Add Money", "exit"}; 
+        return JOptionPane.showOptionDialog(JOptionPane.getRootFrame(), "hello", "title", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, menuOption, menuOption[1]);
     }
 }
