@@ -43,7 +43,6 @@ public class Movie
                 this.title = title;
     }
 
-    @Override
     public String toString() {
         return "Movie [adultCost=" + adultCost + ", childCost=" + childCost + ", hrs=" + hrs + ", mins=" + mins
                 + ", title=" + title + "]";
