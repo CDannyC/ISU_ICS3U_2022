@@ -18,5 +18,5 @@ public class Purchase
     public void removeItem(int ind)
     {
         this.items.remove(ind);
-    } 
+    }
 }
