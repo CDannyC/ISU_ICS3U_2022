@@ -59,7 +59,7 @@ public class Cinema_Client
                 {
                     return cineplex.getMovies().get(i).getCost();
                 }
-                else if (b == 0)
+                else if (b == 1)
                 {
                     return cineplex.getMovies().get(i).getChildCost();
                 }
