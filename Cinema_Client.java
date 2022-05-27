@@ -8,41 +8,42 @@ public class Cinema_Client
     public static Purchase items = new Purchase();
     public static void main(String args[])
     {
-        Cinema cineplex = new Cinema();
-        Purchase items = new Purchase();
-        Movie hel = new Movie(1,1,1,1,"fart");
+        int userSelection;
+        Movie hel = new Movie(1,1,1,"fart");
         cineplex.addMovie(hel);
-        cineplex.addMovie(new Movie(45,6,5.99,10.99,"batman"));
+        cineplex.addMovie(new Movie(45,6,10.99,"batman"));
         //Object a = dropDownMenu(cineplex.getMovies());
         //System.out.println(a);
-        checkMainMenu(mainMenu());
-
-        
-    }
-    public static Object dropDownMenu(ArrayList lst)
-    {
-        Object[] arr = lst.toArray();
-        return JOptionPane.showInputDialog(null, "choose type", "selection", JOptionPane.QUESTION_MESSAGE, null, arr, arr[0]);
-    }
-    public static int mainMenu()
-    {
-        String[] menuOption = {"View Movies", "Add Money", "exit"}; 
-        return 1 + JOptionPane.showOptionDialog(JOptionPane.getRootFrame(), "hello", "title", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, menuOption, menuOption[1]);    
-    }
-    public static void checkMainMenu(int op)
-    {
-        if (op == 1)
+        userSelection = mainMenu(); 
+        if (userSelection == 0)
         {
-            dropDownMenu(cineplex.getMovies());
+        movieSelect();
         }
-        else if (op == 2)
+        else if (userSelection == 1)
         {
             
         }
         else
         {
             
-        }
+        }    
+
+        
     }
-    
+    public static Object movieSelect()
+    {
+        String[] arr = new String[cineplex.getMovies().size()];
+        Movie a;
+        for (int i = 0; i < cineplex.getMovies().size();i++)
+        {
+            a = cineplex.getMovies().get(i);
+            arr[i] = a.getTitle();
+        }
+        return JOptionPane.showInputDialog(null, "choose type", "selection", JOptionPane.QUESTION_MESSAGE, null, arr, arr[0]);
+    }
+    public static int mainMenu()
+    {
+        String[] menuOption = {"Purchase Movie Tickets", "Add Money", "exit"}; 
+        return JOptionPane.showOptionDialog(JOptionPane.getRootFrame(), "hello", "title", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, menuOption, menuOption[1]);    
+    }    
 }

@@ -1,14 +1,13 @@
 public class Movie 
 {
     private int mins, hrs;
-    private double childCost, adultCost;
+    private double childCost, cost;
     private String title;  
 
-    public Movie(int mins, int hrs, double childCost, double adultCost, String title) {
+    public Movie(int mins, int hrs, double cost, String title) {
         this.mins = mins;
         this.hrs = hrs;
-        this.childCost = childCost;
-        this.adultCost = adultCost;
+        this.cost = cost;
         this.title = title;
     }
 
@@ -25,16 +24,13 @@ public class Movie
         this.hrs = hrs;
     }
     public double getChildCost() {
-        return childCost;
+        return cost*.7;
     }
-    public void setChildCost(double childCost) {
-        this.childCost = childCost;
+    public double getCost() {
+        return cost;
     }
-    public double getAdultCost() {
-        return adultCost;
-    }
-    public void setAdultCost(double adultCost) {
-        this.adultCost = adultCost;
+    public void setCost(double cost) {
+        this.cost = cost;
     }
     public String getTitle() {
         return title;
@@ -44,7 +40,7 @@ public class Movie
     }
 
     public String toString() {
-        return "Movie [adultCost=" + adultCost + ", childCost=" + childCost + ", hrs=" + hrs + ", mins=" + mins
+        return "Movie [cost=" + cost + ", childCost=" + childCost + ", hrs=" + hrs + ", mins=" + mins
                 + ", title=" + title + "]";
     }
 
