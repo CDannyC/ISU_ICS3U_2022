@@ -5,7 +5,7 @@ public class Cinema_Client
     //public static int userSelect;
     public static int ticketCounter;
     public static Cinema cineplex = new Cinema();
-    public static double Balance;
+    public static double balance;
     public static void main(String args[])
     {
         int userSelection;
@@ -15,7 +15,7 @@ public class Cinema_Client
         //Object a = dropDownMenu(cineplex.getMovies());
         //System.out.println(a);
 
-        String test1= JOptionPane.showInputDialog("Please input mark for test 1: ");
+        String test1= JOptionPane.showInputDialog("");
 
         while(true)
         {
@@ -90,6 +90,14 @@ public class Cinema_Client
 
         return 0;
     }
+
+    public static void addMoney()
+    {
+        int[] vals = {5, 10 , 25, 50, 100};
+        int selection = JOptionPane.showInputDialog(null, "choose type", "selection", JOptionPane.QUESTION_MESSAGE, null, vals, vals[0]);
+        balance += vals[selection]; 
+    }
+
     public static int mainMenu()
     {
         String[] menuOption = {"Purchase Movie Tickets", "Add Money", "exit"}; 
