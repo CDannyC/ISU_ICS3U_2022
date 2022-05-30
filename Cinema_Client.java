@@ -1,44 +1,53 @@
-import java.util.*;
 import javax.swing.*;
-import java.awt.*;
+
 public class Cinema_Client 
 {
     //public static int userSelect;
+    public static int ticketCounter;
     public static Cinema cineplex = new Cinema();
-    public static Purchase items = new Purchase();
+    public static double Balance;
     public static void main(String args[])
     {
         int userSelection;
-        int price;
-        Movie hel = new Movie(1,1,1,"fart");
+        Movie hel = new Movie(1,1,9.99,"fart");
         cineplex.addMovie(hel);
         cineplex.addMovie(new Movie(45,6,10.99,"batman"));
         //Object a = dropDownMenu(cineplex.getMovies());
         //System.out.println(a);
-        userSelection = mainMenu(); 
-        if (userSelection == 0)
+
+        String test1= JOptionPane.showInputDialog("Please input mark for test 1: ");
+
+        while(true)
         {
-            movieSelect();
-        }
-        else if (userSelection == 1)
-        {
-            
-        }
-        else
-        {
-            
-        }    
+
+        
+            userSelection = mainMenu(); 
+            if (userSelection == 0)
+            {
+                movieSelect();
+            }
+            else if (userSelection == 1)
+            {
+                
+            }
+            else
+            {
+                System.exit(0);
+            }
+            System.out.println(cineplex.getItems());
+        }   
 
         
     }
     public static double movieSelect()
     {
-        String[] menuOption = {"Adult Ticket", "Child Ticket", "Cancel"};
+        String[] menuOption = {"Adult Ticket", "Child Ticket"};
 
 
         String[] arr = new String[cineplex.getMovies().size()];
         Movie a;
         Movie mov;
+
         
         for (int i = 0; i < cineplex.getMovies().size();i++)
         {
@@ -57,19 +66,19 @@ public class Cinema_Client
                 mov = cineplex.getMovies().get(i);
                 if (b == 0)
                 {
-                    return cineplex.getMovies().get(i).getCost();
+                    cineplex.getItems().addItem(new Ticket(cineplex.getMovies().get(i).getCost(), cineplex.getMovies().get(i)));
                 }
                 else if (b == 1)
                 {
-                    return cineplex.getMovies().get(i).getChildCost();
+                    cineplex.getItems().addItem(new Ticket(cineplex.getMovies().get(i).getChildCost(), cineplex.getMovies().get(i)));
                 }
                 else
                 {
-                    return -1;
+                    System.exit(0);
                 }
             }
         }
-
+        
 
         
         //int b = JOptionPane.showOptionDialog(JOptionPane.getRootFrame(), "hello", "title", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, menuOption, menuOption[1]);
@@ -85,14 +94,5 @@ public class Cinema_Client
     {
         String[] menuOption = {"Purchase Movie Tickets", "Add Money", "exit"}; 
         return JOptionPane.showOptionDialog(JOptionPane.getRootFrame(), "hello", "title", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, menuOption, menuOption[1]);    
-    }
-    public static double purchaseMovie()
-    {
-         
-
-        
-        Movie mov;
-
-        return 0;
     }
 }
