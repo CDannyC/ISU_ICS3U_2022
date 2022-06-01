@@ -24,7 +24,8 @@ public class Movie
         this.hrs = hrs;
     }
     public double getChildCost() {
-        return cost*.7;
+        double a = cost * .7;
+        return Math.round(a * 100.0) / 100.0;
     }
     public double getCost() {
         return cost;

@@ -25,7 +25,7 @@ public class Ticket
     }
     public String toString() 
     {
-        return "Ticket movie: " + movie.getTitle() + "\t" + "price: " + price;
+        return "Ticket | movie: " + movie.getTitle() + "\t" + " | Price: " + price;
     }
     
 

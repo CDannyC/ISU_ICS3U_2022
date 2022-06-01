@@ -1,11 +1,15 @@
+import java.text.DecimalFormat;
 import java.util.*;
 public class Purchase 
 {
     private ArrayList<Object> items;
-
     public Purchase()
     {
         this.items = new ArrayList<Object>();
+    }
+    public ArrayList getCart()
+    {
+        return this.items;
     }
     public void addItem(Object obj)
     {
@@ -21,7 +25,7 @@ public class Purchase
     }
     public String toString() 
     {
-        String str = "";
+        String str = new String();
         for (int i = 0; i < items.size(); i++)
         {
             str += items.get(i) + "\n";
