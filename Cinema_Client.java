@@ -105,26 +105,20 @@ public class Cinema_Client
     public static int viewCart()
     {
         int selection;
-        String str;
         Object[] arr = new Object[cineplex.getItems().getCart().size()];
         String[] menuOption = {"Void Item", "Go Back"};
-        Object[] checkB = new Object[cineplex.getItems().getCart().size() + 1];
         
-        checkB[0] = "Select items to void:";
         for (int i = 0; i < cineplex.getItems().getCart().size(); i++)
         {
-            str = cineplex.getItems().getItem(i).toString();
-            checkB[i] = new JCheckBox(str);
             arr[i] = cineplex.getItems().getItem(i);
         }
 
         selection = JOptionPane.showOptionDialog(null, cineplex.getItems() , "Your Cart",JOptionPane.DEFAULT_OPTION,JOptionPane.PLAIN_MESSAGE,null, menuOption, menuOption[1]);
         if (selection == 0)
         {
-
             try
             {
-                JOptionPane.showConfirmDialog(JOptionPane.getRootFrame(), checkB, "selection", JOptionPane.YES_OPTION);
+                JOptionPane.showInputDialog(null, "Select item to void: ", "selection", JOptionPane.QUESTION_MESSAGE, null, arr, arr[0]);
             }
             catch (ArrayIndexOutOfBoundsException e)
             {
