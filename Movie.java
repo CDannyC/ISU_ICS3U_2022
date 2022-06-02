@@ -45,5 +45,4 @@ public class Movie
                 + ", title=" + title + "]";
     }
 
-    
 }
