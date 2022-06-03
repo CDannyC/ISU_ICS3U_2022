@@ -1,7 +1,7 @@
 public class Movie 
 {
     private int mins, hrs;
-    private double childCost, cost;
+    private double cost;
     private String title;  
 
     public Movie(int mins, int hrs, double cost, String title) {
@@ -41,7 +41,7 @@ public class Movie
     }
 
     public String toString() {
-        return "Movie [cost=" + cost + ", childCost=" + childCost + ", hrs=" + hrs + ", mins=" + mins
+        return "Movie [cost=" + cost + ", childCost=" + this.getChildCost() + ", hrs=" + hrs + ", mins=" + mins
                 + ", title=" + title + "]";
     }
 

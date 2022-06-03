@@ -12,9 +12,6 @@ public class Cinema_Client
     public static void main(String args[])
     {
         int userSelection;
-        Movie hel = new Movie(1,1,9.99,"fart");
-        cineplex.addMovie(hel);
-        cineplex.addMovie(new Movie(45,6,10.99,"batman"));
         //Object a = dropDownMenu(cineplex.getMovies());
         //System.out.println(a);
         while(true)
@@ -27,9 +24,13 @@ public class Cinema_Client
             }
             else if (userSelection == 1)
             {
-                addMoney();
+                movieInfo();
             }
             else if (userSelection == 2)
+            {
+                addMoney();
+            }
+            else if (userSelection == 3)
             {
                 viewCart();
             }
@@ -119,12 +120,41 @@ public class Cinema_Client
         return 0;
     }//end movieSelect()
 
-    public static void addMoney()
+    public static int movieInfo()
+    {
+        String[] arr = new String[cineplex.getMovies().size()];
+        
+        for (int i = 0; i < cineplex.getMovies().size(); i++)
+        {
+            arr[i] = cineplex.getMovies().get(i).getTitle();
+        }//end loop
+
+        Object selection = JOptionPane.showInputDialog(null, "choose type", "selection", JOptionPane.QUESTION_MESSAGE, null, arr, arr[0]);
+
+        if (selection == null)
+        {
+            return -1;
+        }
+        for (int i = 0; i < arr.length; i++) 
+        {
+            if (selection.toString() == arr[i])
+            {
+                JOptionPane.showConfirmDialog(null, cineplex.getMovies().get(i), "Movie Details", JOptionPane.OK_OPTION);
+            }
+        }
+
+        return 0;
+    }
+
+    public static int addMoney()
     {
         Integer[] vals = {5, 10 , 25, 50, 100};
         Object selection = JOptionPane.showInputDialog(null, "Select amount of money to add to your balance", "Balance", JOptionPane.QUESTION_MESSAGE, null, vals, vals[0]);
+        if (selection == null) 
+            {return -1;}
         balance += (int)selection;
         JOptionPane.showMessageDialog(null, "Your current balance is: $" + df.format(balance), "Balance", JOptionPane.PLAIN_MESSAGE);
+        return 0;
     }//end addMoney()
 
     public static int viewCart()
@@ -177,7 +207,7 @@ public class Cinema_Client
             }
             catch (ArrayIndexOutOfBoundsException e)
             {
-                JOptionPane.showMessageDialog(null, "No items to void");
+                JOptionPane.showMessageDialog(null, "No items to void", " ERROR!", JOptionPane.OK_OPTION);
                 return -1;
             }
         }
@@ -188,7 +218,7 @@ public class Cinema_Client
     {
         //Math.round(a * 100.0) / 100.0;
         String[] txt = {"Welcome To Cineplex", " ", "Current balance: $" +df.format(balance)};
-        String[] menuOption = {"Purchase Movie Tickets", "Add Money", "View Cart", "exit"}; 
+        String[] menuOption = {"Purchase Movie Tickets", "View Movie Details", "Add Money", "View Cart", "exit"}; 
         return JOptionPane.showOptionDialog(JOptionPane.getRootFrame(), txt, "title", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, menuOption, menuOption[0]);    
     }//end mainMenu()
 }//end class
