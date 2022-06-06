@@ -8,7 +8,7 @@ public class Cinema
     {
         this.items = new Purchase();
         this.movies = new ArrayList<Movie>();
-        movies.add(new Movie(1,1,9.99,"fart"));
+        movies.add(new Movie(1,1,9.99,"hello"));
         movies.add(new Movie(45,6,10.99,"batman"));
         movies.add(new Movie(56, 1, 19.99, "Avengers"));
     }

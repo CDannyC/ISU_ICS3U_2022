@@ -63,7 +63,7 @@ public class Cinema_Client
         System.out.println(selection);
         System.out.println(selection == null);
         if (selection == null)
-        { return -1;}
+        {return -1;}
         //if (selection.equals())
 
         int b = JOptionPane.showOptionDialog(JOptionPane.getRootFrame(), "hello", "title", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, menuOption, menuOption[1]);
@@ -77,33 +77,14 @@ public class Cinema_Client
                 {
                     if (JOptionPane.showConfirmDialog(null, "Add adult ticket for " + df.format(cineplex.getMovies().get(i).getCost()) + " to see " + arr[i], "Add Item", JOptionPane.YES_NO_OPTION) == 0)
                     {
-                        if (balance >= cineplex.getMovies().get(i).getCost())
-                        {
-                            balance -= cineplex.getMovies().get(i).getCost();
-                            cineplex.getItems().addItem(new Ticket(cineplex.getMovies().get(i).getCost(), cineplex.getMovies().get(i)));
-                        }
-                        else
-                        {
-                            JOptionPane.showConfirmDialog(null, "Insufficient Funds!", "TBD", JOptionPane.OK_OPTION);
-                            return -1;
-                        }
+                        cineplex.getItems().addItem(new Ticket(cineplex.getMovies().get(i).getCost(), cineplex.getMovies().get(i)));   
                     }
                 }
                 else if (b == 1)
                 {
                     if (JOptionPane.showConfirmDialog(null, "Add child ticket for " + df.format(cineplex.getMovies().get(i).getChildCost()) + " to see " + arr[i], "Add Item", JOptionPane.YES_NO_OPTION) == 0)
                     {
-                        if (balance >= cineplex.getMovies().get(i).getChildCost())
-                        {
-                            balance -= cineplex.getMovies().get(i).getChildCost();
-                            cineplex.getItems().addItem(new Ticket(cineplex.getMovies().get(i).getChildCost(), cineplex.getMovies().get(i)));
-                        }
-                        else
-                        {
-                            JOptionPane.showConfirmDialog(null, "Insufficient Funds!", "TBD", JOptionPane.OK_OPTION);
-                            return -1;
-                        }
-
+                        cineplex.getItems().addItem(new Ticket(cineplex.getMovies().get(i).getChildCost(), cineplex.getMovies().get(i)));
                     }
                 }
                 else
@@ -163,7 +144,7 @@ public class Cinema_Client
         String str;
         boolean isChecked;
         Object[] arr = new Object[cineplex.getItems().getCart().size()];
-        String[] menuOption = {"Void Item", "Go Back"};
+        String[] menuOption = {"Void Item", "Proceed to Checkout",  "Go Back"};
         JCheckBox[] checkB = new JCheckBox[cineplex.getItems().getCart().size()];
         ArrayList<Integer> rmv = new ArrayList<Integer>();
         
@@ -211,6 +192,10 @@ public class Cinema_Client
                 return -1;
             }
         }
+        else if (selection == 1) 
+        {
+            checkout();
+        }
         return 0;
     }
 
@@ -221,4 +206,49 @@ public class Cinema_Client
         String[] menuOption = {"Purchase Movie Tickets", "View Movie Details", "Add Money", "View Cart", "exit"}; 
         return JOptionPane.showOptionDialog(JOptionPane.getRootFrame(), txt, "title", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, menuOption, menuOption[0]);    
     }//end mainMenu()
+    public static int checkout()
+    {
+        double total = 0;
+        for (int i = 0; i < cineplex.getItems().getCart().size(); i++) 
+        {
+            total += cineplex.getItems().getItem(i).getPrice();            
+        }
+        total = 
+        Math.round(total * 100.0) / 100.0;
+        if (JOptionPane.showConfirmDialog(null, cineplex.getItems().toString() + "total: $" + total, "Your Cart",JOptionPane.DEFAULT_OPTION,JOptionPane.PLAIN_MESSAGE,null) == 0)
+        
+        {
+
+
+
+            if (balance >= total)
+            {
+                balance -= total;
+                cineplex.getItems().clearCart();
+            }
+            else
+            {
+                JOptionPane.showConfirmDialog(null, "Insufficient Funds!", "TBD", JOptionPane.OK_OPTION);
+                return -1;
+            }
+
+        }
+        return 0;
+    }
+
 }//end class
+
+
+
+/*
+ *                      if (balance >= cineplex.getMovies().get(i).getCost())
+                        {
+                            balance -= cineplex.getMovies().get(i).getCost();
+                            cineplex.getItems().addItem(new Ticket(cineplex.getMovies().get(i).getCost(), cineplex.getMovies().get(i)));
+                        }
+                        else
+                        {
+                            JOptionPane.showConfirmDialog(null, "Insufficient Funds!", "TBD", JOptionPane.OK_OPTION);
+                            return -1;
+                        }
+ */
