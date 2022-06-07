@@ -28,9 +28,13 @@ public class Cinema_Client
             }
             else if (userSelection == 2)
             {
-                addMoney();
+                foodSelect();
             }
             else if (userSelection == 3)
+            {
+                addMoney();
+            }
+            else if (userSelection == 4)
             {
                 viewCart();
             }
@@ -100,6 +104,71 @@ public class Cinema_Client
 
         return 0;
     }//end movieSelect()
+
+
+//////////////////////////////////////////////////////////////////////////////////////////
+
+
+    public static int foodSelect()
+    {
+        String[] menuOption = {"Regular", "Large"};
+
+
+        String[] arr = new String[cineplex.getFood().size()];
+        Food a;
+        Food mov;
+
+        
+        for (int i = 0; i < cineplex.getFood().size(); i++)
+        {
+            a = cineplex.getFood().get(i);
+            arr[i] = cineplex.getFood().get(i).getFood();
+        }//end loop
+        
+        Object selection = JOptionPane.showInputDialog(null, "choose type", "selection", JOptionPane.QUESTION_MESSAGE, null, arr, arr[0]);
+        System.out.println(selection);
+        System.out.println(selection == null);
+        if (selection == null)
+        {return -1;}
+        //if (selection.equals())
+
+        int b = JOptionPane.showOptionDialog(JOptionPane.getRootFrame(), "hello", "title", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, menuOption, menuOption[1]);
+
+        for (int i = 0; i < cineplex.getFood().size(); i++)
+        {
+            if (selection.equals(arr[i]))
+            {
+                mov = cineplex.getFood().get(i);
+                if (b == 0)
+                {
+                    if (JOptionPane.showConfirmDialog(null, "Add adult ticket for " + df.format(cineplex.getFood().get(i).getPrice()) + " to see " + arr[i], "Add Item", JOptionPane.YES_NO_OPTION) == 0)
+                    {
+                        cineplex.getItems().addItem(cineplex.getFood().get(i));   
+                    }
+                }
+                else if (b == 1)
+                {
+                    if (JOptionPane.showConfirmDialog(null, "Add child ticket for " + df.format(cineplex.getMovies().get(i).getChildCost()) + " to see " + arr[i], "Add Item", JOptionPane.YES_NO_OPTION) == 0)
+                    {
+                        cineplex.getItems().addItem(cineplex.getFood().get(i));
+                    }
+                }
+                else
+                {
+                    System.exit(0);
+                }
+            }//end if
+        }//end loop
+        
+
+        
+        //int b = JOptionPane.showOptionDialog(JOptionPane.getRootFrame(), "hello", "title", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, menuOption, menuOption[1]);
+
+        return 0;
+    }//end movieSelect()
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////
 
     public static int movieInfo()
     {
@@ -203,20 +272,34 @@ public class Cinema_Client
     {
         //Math.round(a * 100.0) / 100.0;
         String[] txt = {"Welcome To Cineplex", " ", "Current balance: $" +df.format(balance)};
-        String[] menuOption = {"Purchase Movie Tickets", "View Movie Details", "Add Money", "View Cart", "exit"}; 
+        String[] menuOption = {"Purchase Movie Tickets", "View Movie Details", "Purchase Food", "Add Money", "View Cart", "exit"}; 
         return JOptionPane.showOptionDialog(JOptionPane.getRootFrame(), txt, "title", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, menuOption, menuOption[0]);    
     }//end mainMenu()
     public static int checkout()
     {
         double total = 0;
+        //Class a = new String("hh");
         for (int i = 0; i < cineplex.getItems().getCart().size(); i++) 
         {
-            total += cineplex.getItems().getItem(i).getPrice();            
+            //if (cineplex.getItems().getItem(i).getClass().getName().equals("Ticket"))
+            
+            try
+            {
+                total += ((Ticket) cineplex.getItems().getItem(i)).getPrice();
+            } catch (ClassCastException e)
+            {
+                total += ((Food) cineplex.getItems().getItem(i)).getPrice();
+            }
+            //total += ((String) cineplex.getItems().getItem(i)).length();   WILL GIVE ERROR BECAUSE CANNOT CAST TICKET TO STRING
+                        
         }
-        total = 
-        Math.round(total * 100.0) / 100.0;
+        System.out.println(total);
+        System.out.println(total);
+        System.out.println(total);
+        System.out.println(total);
+        total = Math.round(total * 100.0) / 100.0;
         if (JOptionPane.showConfirmDialog(null, cineplex.getItems().toString() + "total: $" + total, "Your Cart",JOptionPane.DEFAULT_OPTION,JOptionPane.PLAIN_MESSAGE,null) == 0)
-        
+
         {
 
 
@@ -237,18 +320,3 @@ public class Cinema_Client
     }
 
 }//end class
-
-
-
-/*
- *                      if (balance >= cineplex.getMovies().get(i).getCost())
-                        {
-                            balance -= cineplex.getMovies().get(i).getCost();
-                            cineplex.getItems().addItem(new Ticket(cineplex.getMovies().get(i).getCost(), cineplex.getMovies().get(i)));
-                        }
-                        else
-                        {
-                            JOptionPane.showConfirmDialog(null, "Insufficient Funds!", "TBD", JOptionPane.OK_OPTION);
-                            return -1;
-                        }
- */

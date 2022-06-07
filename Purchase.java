@@ -2,20 +2,20 @@ import java.text.DecimalFormat;
 import java.util.*;
 public class Purchase 
 {
-    private ArrayList<Ticket> items;
+    private ArrayList<Object> items;
     public Purchase()
     {
-        this.items = new ArrayList<Ticket>();
+        this.items = new ArrayList<Object>();
     }
     public ArrayList getCart()
     {
         return this.items;
     }
-    public void addItem(Ticket obj)
+    public void addItem(Object obj)
     {
         this.items.add(obj);
     }
-    public Ticket getItem(int ind)
+    public Object getItem(int ind)
     {
         return this.items.get(ind);
     }
