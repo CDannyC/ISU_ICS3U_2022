@@ -12,11 +12,12 @@ public class Cinema_Client
     public static void main(String args[])
     {
         int userSelection;
-        //Object a = dropDownMenu(cineplex.getMovies());
-        //System.out.println(a);
+        
         while(true)
         {
-        
+            System.out.println("---");
+            allCarts();
+            System.out.println("---");
             userSelection = mainMenu(); 
             if (userSelection == 0)
             {
@@ -38,11 +39,15 @@ public class Cinema_Client
             {
                 viewCart();
             }
+            else if (userSelection == 5)
+            {
+                allCarts();
+            }
             else
             {
                 System.exit(0);
             }
-            System.out.println(cineplex.getItems());
+            System.out.println(cineplex.getItem());
         }//end loop
 
         
@@ -81,14 +86,14 @@ public class Cinema_Client
                 {
                     if (JOptionPane.showConfirmDialog(null, "Add adult ticket for " + df.format(cineplex.getMovies().get(i).getCost()) + " to see " + arr[i], "Add Item", JOptionPane.YES_NO_OPTION) == 0)
                     {
-                        cineplex.getItems().addItem(new Ticket(cineplex.getMovies().get(i).getCost(), cineplex.getMovies().get(i)));   
+                        cineplex.getItem().addItem(new Ticket(cineplex.getMovies().get(i).getCost(), cineplex.getMovies().get(i)));   
                     }
                 }
                 else if (b == 1)
                 {
                     if (JOptionPane.showConfirmDialog(null, "Add child ticket for " + df.format(cineplex.getMovies().get(i).getChildCost()) + " to see " + arr[i], "Add Item", JOptionPane.YES_NO_OPTION) == 0)
                     {
-                        cineplex.getItems().addItem(new Ticket(cineplex.getMovies().get(i).getChildCost(), cineplex.getMovies().get(i)));
+                        cineplex.getItem().addItem(new Ticket(cineplex.getMovies().get(i).getChildCost(), cineplex.getMovies().get(i)));
                     }
                 }
                 else
@@ -143,14 +148,14 @@ public class Cinema_Client
                 {
                     if (JOptionPane.showConfirmDialog(null, "Add adult ticket for " + df.format(cineplex.getFood().get(i).getPrice()) + " to see " + arr[i], "Add Item", JOptionPane.YES_NO_OPTION) == 0)
                     {
-                        cineplex.getItems().addItem(cineplex.getFood().get(i));   
+                        cineplex.getItem().addItem(cineplex.getFood().get(i));   
                     }
                 }
                 else if (b == 1)
                 {
                     if (JOptionPane.showConfirmDialog(null, "Add child ticket for " + df.format(cineplex.getMovies().get(i).getChildCost()) + " to see " + arr[i], "Add Item", JOptionPane.YES_NO_OPTION) == 0)
                     {
-                        cineplex.getItems().addItem(cineplex.getFood().get(i));
+                        cineplex.getItem().addItem(cineplex.getFood().get(i));
                     }
                 }
                 else
@@ -212,18 +217,18 @@ public class Cinema_Client
         int selection;
         String str;
         boolean isChecked;
-        Object[] arr = new Object[cineplex.getItems().getCart().size()];
+        Object[] arr = new Object[cineplex.getItem().getCart().size()];
         String[] menuOption = {"Void Item", "Proceed to Checkout",  "Go Back"};
-        JCheckBox[] checkB = new JCheckBox[cineplex.getItems().getCart().size()];
+        JCheckBox[] checkB = new JCheckBox[cineplex.getItem().getCart().size()];
         ArrayList<Integer> rmv = new ArrayList<Integer>();
         
-        for (int i = 0; i < cineplex.getItems().getCart().size(); i++)
+        for (int i = 0; i < cineplex.getItem().getCart().size(); i++)
         {
-            checkB[i] = new JCheckBox(cineplex.getItems().getItem(i).toString());
-            arr[i] = cineplex.getItems().getItem(i);
+            checkB[i] = new JCheckBox(cineplex.getItem().getItem(i).toString());
+            arr[i] = cineplex.getItem().getItem(i);
         }
 
-        selection = JOptionPane.showOptionDialog(null, cineplex.getItems() , "Your Cart",JOptionPane.DEFAULT_OPTION,JOptionPane.PLAIN_MESSAGE,null, menuOption, menuOption[1]);
+        selection = JOptionPane.showOptionDialog(null, cineplex.getItem() , "Your Cart",JOptionPane.DEFAULT_OPTION,JOptionPane.PLAIN_MESSAGE,null, menuOption, menuOption[1]);
         if (selection == 0)
         {
 
@@ -236,12 +241,12 @@ public class Cinema_Client
                 {
 
                     System.out.println(checkB.length);
-                    System.out.println(cineplex.getItems().getCart().size());
-                    //System.out.println(cineplex.getItems().getItem(i));
+                    System.out.println(cineplex.getItem().getCart().size());
+                    //System.out.println(cineplex.getItem().getItem(i));
                     System.out.println();
                     for (int i = 0; i < checkB.length; i++) 
                     {   
-                        System.out.println(cineplex.getItems().getItem(i));
+                        System.out.println(cineplex.getItem().getItem(i));
                         if (checkB[i].isSelected() == true)
                         {
                             rmv.add(i);
@@ -250,7 +255,7 @@ public class Cinema_Client
                     }
                     for (int i = rmv.size()-1; i>=0; i--) 
                     {
-                        cineplex.getItems().removeItem(rmv.get(i));
+                        cineplex.getItem().removeItem(rmv.get(i));
                     }
                 }
                 return 1;
@@ -272,25 +277,25 @@ public class Cinema_Client
     {
         //Math.round(a * 100.0) / 100.0;
         String[] txt = {"Welcome To Cineplex", " ", "Current balance: $" +df.format(balance)};
-        String[] menuOption = {"Purchase Movie Tickets", "View Movie Details", "Purchase Food", "Add Money", "View Cart", "exit"}; 
+        String[] menuOption = {"Purchase Movie Tickets", "View Movie Details", "Purchase Food", "Add Money", "View Cart", "All Carts", "exit"}; 
         return JOptionPane.showOptionDialog(JOptionPane.getRootFrame(), txt, "title", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, menuOption, menuOption[0]);    
     }//end mainMenu()
     public static int checkout()
     {
         double total = 0;
         //Class a = new String("hh");
-        for (int i = 0; i < cineplex.getItems().getCart().size(); i++) 
+        for (int i = 0; i < cineplex.getItem().getCart().size(); i++) 
         {
-            //if (cineplex.getItems().getItem(i).getClass().getName().equals("Ticket"))
+            //if (cineplex.getItem().getItem(i).getClass().getName().equals("Ticket"))
             
             try
             {
-                total += ((Ticket) cineplex.getItems().getItem(i)).getPrice();
+                total += ((Ticket) cineplex.getItem().getItem(i)).getPrice();
             } catch (ClassCastException e)
             {
-                total += ((Food) cineplex.getItems().getItem(i)).getPrice();
+                total += ((Food) cineplex.getItem().getItem(i)).getPrice();
             }
-            //total += ((String) cineplex.getItems().getItem(i)).length();   WILL GIVE ERROR BECAUSE CANNOT CAST TICKET TO STRING
+            //total += ((String) cineplex.getItem().getItem(i)).length();   WILL GIVE ERROR BECAUSE CANNOT CAST TICKET TO STRING
                         
         }
         System.out.println(total);
@@ -298,8 +303,7 @@ public class Cinema_Client
         System.out.println(total);
         System.out.println(total);
         total = Math.round(total * 100.0) / 100.0;
-        if (JOptionPane.showConfirmDialog(null, cineplex.getItems().toString() + "total: $" + total, "Your Cart",JOptionPane.DEFAULT_OPTION,JOptionPane.PLAIN_MESSAGE,null) == 0)
-
+        if (JOptionPane.showConfirmDialog(null, cineplex.getItem().toString() + "total: $" + total, "Your Cart",JOptionPane.DEFAULT_OPTION,JOptionPane.PLAIN_MESSAGE,null) == 0)
         {
 
 
@@ -307,7 +311,7 @@ public class Cinema_Client
             if (balance >= total)
             {
                 balance -= total;
-                cineplex.getItems().clearCart();
+                cineplex.newCart();
             }
             else
             {
@@ -316,6 +320,17 @@ public class Cinema_Client
             }
 
         }
+        return 0;
+    }
+
+    public static int allCarts()
+    {
+        String str = "";
+        for (int i = 0; i < cineplex.getItems().size(); i++) 
+        {
+            str += cineplex.getItems().get(i);
+        }
+        JOptionPane.showConfirmDialog(null, str, "TBD", JOptionPane.OK_OPTION);
         return 0;
     }
 

@@ -4,7 +4,8 @@ public class Movie
     private double cost;
     private String title;  
 
-    public Movie(int mins, int hrs, double cost, String title) {
+    public Movie(int mins, int hrs, double cost, String title)
+    {
         this.mins = mins;
         this.hrs = hrs;
         this.cost = cost;
